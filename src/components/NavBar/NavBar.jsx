@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from "@mui/material";
 import { Menu, AccountCircle, Brightness4, Brightness7 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import { Sidebar } from '../Index';
 
 import useStyles from "./styles";
 
 const NavBar = () => {
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const classes = useStyles();
   const isMobile = useMediaQuery("(max-width: 600px)");
   const theme = useTheme();
   const isAuthenticated = true;
+  
 
   return (
     <>
@@ -42,6 +45,29 @@ const NavBar = () => {
           
         </Toolbar>
       </AppBar>
+      <div>
+        <nav className={classes.drawer}>
+          {isMobile ? (
+            <Drawer
+            variant='temporary'
+            anchor='right'
+            open= {mobileOpen}
+            ModalProps={{KeepMounted: true}}
+            classes={{paper: classes.drawerPaper}}
+            >
+            <Sidebar setMobileOpen={setMobileOpen} />
+            </Drawer>
+          ) : (
+            <Drawer 
+            variant='permanent' 
+            ModalProps={{KeepMounted: true}}
+            classes={{paper: classes.drawerPaper}}
+            >
+            <Sidebar setMobileOpen={setMobileOpen} />
+            </Drawer>
+          )}
+        </nav>
+      </div>
     </>
   )
 }

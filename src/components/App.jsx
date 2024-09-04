@@ -12,10 +12,11 @@ const App = () => {
 
   return (
 
-    <div>
+    <div className={classes.root}>
     <CssBaseline />
     <NavBar />
-    <main className={classes.root}>
+    <main className={classes.content}>
+    <div className={classes.toolbar}/>
     <Routes>
         <Route path="/" element={<Actor />}/>
         <Route path="/movies/:id" element={<MovieInformation />} />
