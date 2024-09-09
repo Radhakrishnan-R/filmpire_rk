@@ -20,9 +20,11 @@ export default makeStyles((theme) => ({
         }
     },
     drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        backgroundColor: "black",
+        [theme.breakpoints.up("sm")]: {
+            width: drawerWidth,
+            flexShrink: 0,
+        }
+        
     },
     drawerPaper: {
         width: drawerWidth,
