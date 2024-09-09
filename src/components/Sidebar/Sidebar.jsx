@@ -4,6 +4,7 @@ import {Divider, ListItem, List, ListItemText, ListSubheader, ListItemIcon, Box,
 import { Link } from "react-router-dom";
 import { useTheme } from '@emotion/react';
 import useStyles from "./sidebar";
+import { useGetGenresQuery } from '../../services/TMDB';
 
 const blueLogo ='https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
 const redLogo ='https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
@@ -11,6 +12,8 @@ const redLogo ='https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2
 const Sidebar = ({setMobileOpen}) => {
     const theme = useTheme();
     const classes = useStyles();
+    const {data, isFetching} = useGetGenresQuery();
+    
 
     const categotries = [
       {Label: "Popular", value: "popular"},
@@ -35,8 +38,8 @@ const Sidebar = ({setMobileOpen}) => {
           {categotries.map(({Label, value}) => (
 
             <ListItem button={value.toString()} onClick={() => {}} key={value} to="/"  className={classes.link} component={Link}>
-            <ListItemIcon sx={{mr: 1}}>
-              <img src={blueLogo} width={70} className={classes.genreImage}/>
+            <ListItemIcon>
+              <img className={classes.genreImage}/>
             </ListItemIcon>
             <ListItemText primary={Label}/>
             </ListItem>
@@ -44,16 +47,25 @@ const Sidebar = ({setMobileOpen}) => {
           ))}
           <Divider />
           <ListSubheader>Genres</ListSubheader>
-          {demoCategotries.map(({Label, value}) => (
+          {isFetching ?
+          (
+          <Box display="flex" justifyContent="center">
+            <CircularProgress size="4rem"/>
+          </Box>
+          ):
+          (
+            data.genres.map(({name, id}) => (
          
-            <ListItem button={value.toString()} onClick={() => {}} key={value} to="/"  className={classes.link} component={Link}>
-            <ListItemIcon sx={{mr: 1}}>
-            <img src={blueLogo} width={70} className={classes.genreImage}/>
-            </ListItemIcon>
-              <ListItemText primary={Label}/>
-            </ListItem>
-         
-          ))}
+         <ListItem onClick={() => {}} key={id} to="/"  className={classes.link} component={Link} button="true" >
+         <ListItemIcon>
+         <img className={classes.genreImage}/>
+         </ListItemIcon>
+           <ListItemText primary={name}/>
+         </ListItem>
+      
+       ))
+          )}
+          
           
         </List>
     </>

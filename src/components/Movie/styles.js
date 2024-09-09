@@ -31,5 +31,5 @@ export default makeStyles((theme) => ({
         "&:hover": {
             transform: "scale(1.05)",
         }
-    }
+    },
 }));
