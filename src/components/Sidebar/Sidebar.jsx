@@ -4,7 +4,10 @@ import {Divider, ListItem, List, ListItemText, ListSubheader, ListItemIcon, Box,
 import { Link } from "react-router-dom";
 import { useTheme } from '@emotion/react';
 import useStyles from "./sidebar";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
 import { useGetGenresQuery } from '../../services/TMDB';
+import genreIcons from "../../assets/genres/index";
 
 const blueLogo ='https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
 const redLogo ='https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
@@ -13,11 +16,14 @@ const Sidebar = ({setMobileOpen}) => {
     const theme = useTheme();
     const classes = useStyles();
     const {data, isFetching} = useGetGenresQuery();
+    const dispatch = useDispatch();
+    const {genreOrCategoryName} = useSelector((state) => state.currentGenreOrCategory);
+    // console.log(genreIcons);
     
 
     const categotries = [
       {Label: "Popular", value: "popular"},
-      {Label: "Top-rated", value: "top-rated"},
+      {Label: "Top Rated", value: "top_rated"},
       {Label: "Upcoming", value: "upcoming"},
     ]
     const demoCategotries = [
@@ -37,9 +43,9 @@ const Sidebar = ({setMobileOpen}) => {
           <ListSubheader>Catogaries</ListSubheader>
           {categotries.map(({Label, value}) => (
 
-            <ListItem button={value.toString()} onClick={() => {}} key={value} to="/"  className={classes.link} component={Link}>
+            <ListItem button={value.toString()} onClick={() => dispatch(selectGenreOrCategoryName(value))} key={value} to="/"  className={classes.link} component={Link}>
             <ListItemIcon>
-              <img className={classes.genreImage}/>
+              <img  src={genreIcons[Label.toLowerCase()]} className={classes.genreImage} width="30px"/>
             </ListItemIcon>
             <ListItemText primary={Label}/>
             </ListItem>
@@ -56,9 +62,9 @@ const Sidebar = ({setMobileOpen}) => {
           (
             data.genres.map(({name, id}) => (
          
-         <ListItem onClick={() => {}} key={id} to="/"  className={classes.link} component={Link} button="true" >
+         <ListItem onClick={() => dispatch(selectGenreOrCategoryName(id))} key={id} to="/"  className={classes.link} component={Link} button="true" >
          <ListItemIcon>
-         <img className={classes.genreImage}/>
+         <img src={genreIcons[name.toLowerCase()]} className={classes.genreImage} width="30px" />
          </ListItemIcon>
            <ListItemText primary={name}/>
          </ListItem>
