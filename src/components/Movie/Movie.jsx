@@ -13,7 +13,7 @@ const Movie = ({movie, i}) => {
         <Link to={`/movies/:${movie.id}`} className={classes.link} sx={{textDecoration: "none"}}>
           <img
           alt={movie.title} 
-            src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://fillmurray.com/200/300`}
+            src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://via.placeholder.com/200x300`}
             className={classes.image}
           />
           <Typography variant='h5' className={classes.title}>{movie.title}</Typography>
