@@ -10,7 +10,7 @@ const Movie = ({movie, i}) => {
   return (
     <Grid2 xs={12} sm={6} md={4} lg={3} xl={2} className={classes.movieCard} >
       <Grow in timeout={(i + 1) * 250}>
-        <Link to={`/movies/:${movie.id}`} className={classes.link} sx={{textDecoration: "none"}}>
+        <Link to={`/movies/${movie.id}`} className={classes.link} sx={{textDecoration: "none"}}>
           <img
           alt={movie.title} 
             src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : `https://via.placeholder.com/200x300`}

@@ -27,7 +27,11 @@ export const tmdbApi = createApi({
                 return `trending/movie/day?api_key=${tmdbApiKey}`;
             },
         }),
+        //Get movie info [id]
+        getMovieInfo: builder.query({
+            query: (id) => `movie/${id}?api_key=${tmdbApiKey}&append_to_response=videos,credits`,
+        }),
     }),
 });
 
-export const {useGetMoviesQuery, useGetGenresQuery,} = tmdbApi;
+export const {useGetMoviesQuery, useGetGenresQuery, useGetMovieInfoQuery,} = tmdbApi;
