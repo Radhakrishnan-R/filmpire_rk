@@ -58,4 +58,18 @@ export default makeStyles((theme) => ({
         width: "100%",
         borderRadius: "20px",
     },
+    modal: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    trailer: {
+        width: "50%",
+        height: "50%",
+        [theme.breakpoints.down("sm")]: {
+           width: "90%",
+        height: "50%",
+        },
+
+    },
 }));

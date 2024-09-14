@@ -1,19 +1,34 @@
-import React from 'react';
-import {Grid2, Rating, Box, Typography, CircularProgress } from "@mui/material";
+import React, { useState } from 'react';
+import {Grid2, Rating, Box, Typography, CircularProgress, ButtonGroup, Button, Modal } from "@mui/material";
+import {Language, Movie as MovieIcon, Theaters, Favorite, FavoriteBorderOutlined, Remove, PlusOne, ArrowBack} from "@mui/icons-material";
 import {Link, useParams} from "react-router-dom";
-import { useGetMovieInfoQuery } from '../../services/TMDB';
+import { useGetMovieInfoQuery, useGetMovieSuggestionQuery } from '../../services/TMDB';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from "./styles";
 import genresIcon from "../../assets/genres/index";
 import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
+import { Movie, MovieList } from '../Index';
+
 
 const MovieInformation = () => {
   const {id} = useParams();
   const {data, isFetching, error} = useGetMovieInfoQuery(id);
+  const {data: recommandation, isFetching: fetchingRecommandation} = useGetMovieSuggestionQuery(id);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [trailerOpen, setTrailerOpen] = useState(false)
   console.log(data);
+  // console.log(recommandation);
+
+  const isFavorite = true;
+  const isWishlist = false;
   
+  const isFavorited = () => {
+    
+  }
+  const isWishlisted = () => {
+
+  }
 
   if(isFetching){
     return (
@@ -77,14 +92,55 @@ const MovieInformation = () => {
           <Typography color='textSecondary' gutterBottom>{cast.character.split("/")[0]}</Typography>
         </Link>
         </Grid2>
-        
        )).slice(0,6)}
         
        </Grid2>
-      
-       
+       <Grid2 container justifyContent="space-between" sx={{mt: 5}}>
+          <ButtonGroup variant='outlined'>
+            <Button target='_blank' rel='noopener noreferrer' href={data?.homepage} endIcon={<Language />} >Website</Button>
+            <Button target='_blank' rel='noopener noreferrer' href={`https://www.imdb.com/title/${data.imdb_id}`} endIcon={<MovieIcon />} >Imdb</Button>
+            <Button onClick={() => setTrailerOpen(prev => !prev)}  >trailer</Button>
+          </ButtonGroup>
+          <ButtonGroup variant='outlined'>
+            <Button onClick={isFavorited} endIcon={isFavorite ? <Favorite /> : <FavoriteBorderOutlined />} > 
+            {isFavorite ? "Unfavorite" : "Favorite"}
+            </Button>
+            <Button onClick={isWishlisted} endIcon={isWishlist ? <Remove /> : <PlusOne /> }> 
+            {isWishlist ? "remove" : "wishlist"}
+            </Button>
+            <Button endIcon={<ArrowBack />}>
+            <Typography variant='subtitle2' sx={{textDecoration: "none"}} component={Link} to="/">Back</Typography>
+            </Button>
+            
+          </ButtonGroup>
+       </Grid2>
       </Grid2>
+     
     </Grid2>
+    <Box>
+    <Typography variant='h4' gutterBottom align='left' sx={{mb:5}}>You May also Like</Typography>
+       {fetchingRecommandation ? console.log("fetchinh") :
+        <MovieList movies={recommandation} noOfMovies={12}/>
+       }
+    </Box>
+   <Modal
+   closeAfterTransition
+   open={trailerOpen}
+   onClose={() => setTrailerOpen(prev => !prev)}
+   className={classes.modal}
+   >
+    <iframe
+      autoPlay
+      frameBorder="0"
+      title="Trailer"
+      src={`https://www.youtube.com/embed/${data?.videos?.results[0].key}`}
+      allow='autoplay'
+      className={classes.trailer}
+    />
+   
+   </Modal>
+
+
     </div>
   )
 }

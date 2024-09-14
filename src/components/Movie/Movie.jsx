@@ -8,7 +8,7 @@ const Movie = ({movie, i}) => {
     const classes = useStyles();
 
   return (
-    <Grid2 xs={12} sm={6} md={4} lg={3} xl={2} className={classes.movieCard} >
+    <Grid2 size={{xs:12, sm:6, md:4, lg:3, xl:2}} className={classes.movieCard} >
       <Grow in timeout={(i + 1) * 250}>
         <Link to={`/movies/${movie.id}`} className={classes.link} sx={{textDecoration: "none"}}>
           <img

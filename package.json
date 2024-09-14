@@ -13,7 +13,7 @@
     "@alan-ai/alan-sdk-web": "^1.8.61",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/icons-material": "^6.0.1",
+    "c": "^6.0.1",
     "@mui/material": "^6.0.1",
     "@mui/styles": "^6.0.1",
     "@reduxjs/toolkit": "^2.2.7",
