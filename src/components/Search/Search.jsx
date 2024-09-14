@@ -16,7 +16,6 @@ const Search = () => {
            await dispatch(selectSearchQuery(query));
         }
 
-        setQuery("");
 
     }
 

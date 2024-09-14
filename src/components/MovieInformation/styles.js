@@ -23,7 +23,6 @@ export default makeStyles((theme) => ({
     },
     infoContainer: {
         display: "flex",
-        flexDirection: "column",
         padding: "10px",
         // flex: 1,
     },
@@ -51,7 +50,12 @@ export default makeStyles((theme) => ({
     genreLinks: {
         color: theme.palette.text.primary,
         display: "flex",
+        alignItems: "center",
         gap: "10px",
         textDecoration: "none",
+    },
+    castImage: {
+        width: "100%",
+        borderRadius: "20px",
     },
 }));
