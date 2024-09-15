@@ -36,7 +36,22 @@ export const tmdbApi = createApi({
         getMovieSuggestion: builder.query({
             query: (id) => `movie/${id}/recommendations?api_key=${tmdbApiKey}`,
         }),
+
+        //get actor information and movies
+        getActorInfor: builder.query({
+            query: (id) => `person/${id}?api_key=${tmdbApiKey}&append_to_response=movie_credits`,
+        }),
+
     }),
 });
 
-export const {useGetMoviesQuery, useGetGenresQuery, useGetMovieInfoQuery, useGetMovieSuggestionQuery,} = tmdbApi;
+export const {useGetMoviesQuery, 
+    useGetGenresQuery, 
+    useGetMovieInfoQuery, 
+    useGetMovieSuggestionQuery,
+    useGetActorInforQuery,
+} = tmdbApi;
+
+
+//https://api.themoviedb.org/3/person/49265/movie_credits?api_key=732dfe94c237f44327af913ebba97825
+//https://api.themoviedb.org/3/person/49265?api_key=732dfe94c237f44327af913ebba97825

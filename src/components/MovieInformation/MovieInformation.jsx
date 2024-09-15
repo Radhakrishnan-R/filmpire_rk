@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from "./styles";
 import genresIcon from "../../assets/genres/index";
 import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
-import { Movie, MovieList } from '../Index';
+import { Movie, MovieList } from '../index';
 
 
 const MovieInformation = () => {
@@ -82,7 +82,7 @@ const MovieInformation = () => {
        <Grid2 container className={classes.castGrid} width="100%" spacing={1}>
        {data?.credits?.cast.map(cast => (
         <Grid2 key={cast.id} size={{xs:4, md:2}}>
-        <Link  onClick={() => {}} to="/profile/:id" style={{textDecoration: "none"}}>
+        <Link to={`/profile/${cast.id}`} style={{textDecoration: "none"}}>
           <img 
             alt=""
             src= {`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}

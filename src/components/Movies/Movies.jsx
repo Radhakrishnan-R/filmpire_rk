@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
 import { selectSearchQuery } from '../../features/currentGenreOrCategory';
 import { useGetMoviesQuery } from '../../services/TMDB';
-import { MovieList } from '../Index';
+import { MovieList } from '../index';
 
 import useStyles from "./styles";
 

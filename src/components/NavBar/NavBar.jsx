@@ -3,7 +3,7 @@ import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } fr
 import { Menu, AccountCircle, Brightness4, Brightness7 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
-import { Sidebar } from '../Index';
+import { Sidebar } from '../index';
 
 import useStyles from "./styles";
 import Search from '../Search/Search';
