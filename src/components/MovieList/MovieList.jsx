@@ -6,7 +6,7 @@ import { Movie } from '../index';
 import { useGetMovieSuggestionQuery } from '../../services/TMDB';
 
 const MovieList = ({movies, noOfMovies}) => {
-  console.log(movies);
+  console.log(movies, noOfMovies);
     const classes = useStyles();
     const movieList = movies?.results || movies?.cast ;
   return (

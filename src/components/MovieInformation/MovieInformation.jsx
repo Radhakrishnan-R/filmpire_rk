@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Grid2, Rating, Box, Typography, CircularProgress, ButtonGroup, Button, Modal } from "@mui/material";
 import {Language, Movie as MovieIcon, Theaters, Favorite, FavoriteBorderOutlined, Remove, PlusOne, ArrowBack} from "@mui/icons-material";
 import {Link, useParams} from "react-router-dom";
@@ -7,18 +7,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from "./styles";
 import genresIcon from "../../assets/genres/index";
 import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
-import { Movie, MovieList } from '../index';
+import { Movie, MovieList, Pagination } from '../index';
 
 
 const MovieInformation = () => {
+  const [page, setPage] = useState(1)
   const {id} = useParams();
   const {data, isFetching, error} = useGetMovieInfoQuery(id);
-  const {data: recommandation, isFetching: fetchingRecommandation} = useGetMovieSuggestionQuery(id);
+  const {data: recommandation, isFetching: fetchingRecommandation} = useGetMovieSuggestionQuery({id, page});
   const classes = useStyles();
   const dispatch = useDispatch();
   const [trailerOpen, setTrailerOpen] = useState(false)
   console.log(data);
-  // console.log(recommandation);
+  console.log(recommandation);
+
+  useEffect(() => {
+    setPage(1);
+  }, [id]);
+  
 
   const isFavorite = true;
   const isWishlist = false;
@@ -81,7 +87,7 @@ const MovieInformation = () => {
        <Typography variant='h5' gutterBottom sx={{mt:5}}>Top Cast</Typography>
        <Grid2 container className={classes.castGrid} width="100%" spacing={1}>
        {data?.credits?.cast.map(cast => (
-        <Grid2 key={cast.id} size={{xs:4, md:2}}>
+        cast.profile_path && <Grid2 key={cast.id} size={{xs:4, md:2}}>
         <Link to={`/profile/${cast.id}`} style={{textDecoration: "none"}}>
           <img 
             alt=""
@@ -123,6 +129,8 @@ const MovieInformation = () => {
         <MovieList movies={recommandation} noOfMovies={12}/>
        }
     </Box>
+
+    <Pagination page={page} setPage={setPage} totalPages={recommandation && recommandation.total_pages}/>
    <Modal
    closeAfterTransition
    open={trailerOpen}
@@ -139,7 +147,7 @@ const MovieInformation = () => {
     />
    
    </Modal>
-
+    
 
     </div>
   )

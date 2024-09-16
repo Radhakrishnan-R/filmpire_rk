@@ -4,7 +4,7 @@ import {ArrowBack} from "@mui/icons-material"
 import {MovieList} from "../index";
 
 import useStyles from "./styles";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useGetActorInforQuery } from '../../services/TMDB';
 
 
@@ -13,6 +13,7 @@ const ProfilePage = () => {
   const {id} = useParams();
   const {data, isFetching, error} = useGetActorInforQuery(id);
   console.log(data);
+  const navigate = useNavigate();
 
   const classes = useStyles();
 
@@ -43,14 +44,14 @@ const ProfilePage = () => {
           <Typography gutterBottom>{data.biography}</Typography>
           <Box width="100%" display="flex" justifyContent="space-around" sx={{marginTop: "30px"}}>
           <Button variant="contained" target="_blank" rel="noopener noreferrer" href={`https://www.imdb.com/name/${data.imdb_id}`} >Imdb</Button>
-          <Button  startIcon={<ArrowBack />}>Back</Button>
+          <Button  startIcon={<ArrowBack />} onClick={() => navigate(-1)} >Back</Button>
           </Box>
           
         </Grid2>
       </Grid2>
       
       <Box sx={{mt: 5}}>
-        <Typography variant='h3'>Movies</Typography>
+        <Typography variant='h3' marginBottom="30px">Movies</Typography>
         <MovieList movies={data.movie_credits} noOfMovies={12} />
       </Box>
     </div>

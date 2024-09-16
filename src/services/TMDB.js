@@ -14,17 +14,17 @@ export const tmdbApi = createApi({
         getMovies: builder.query({
             query: ({genreOrCategoryName, page, searchQuery}) => {
                 if(searchQuery) {
-                    return `search/movie?query=${searchQuery}&api_key=${tmdbApiKey}`;
+                    return `search/movie?query=${searchQuery}&api_key=${tmdbApiKey}&page=${page}`;
                 }
 
                 if(genreOrCategoryName && typeof genreOrCategoryName === "string"){
-                    return `movie/${genreOrCategoryName}?page=${page}&api_key=${tmdbApiKey}`;
+                    return `movie/${genreOrCategoryName}?page=${page}&api_key=${tmdbApiKey}&page=${page}`;
                 }
                 if(genreOrCategoryName && typeof genreOrCategoryName === "number"){
                     return `discover/movie?with_genres=${genreOrCategoryName}&api_key=${tmdbApiKey}&page=${page}`;
                 }
 
-                return `trending/movie/day?api_key=${tmdbApiKey}`;
+                return `trending/movie/day?api_key=${tmdbApiKey}&page=${page}`;
             },
         }),
         //Get movie info [id]
@@ -34,7 +34,7 @@ export const tmdbApi = createApi({
 
         //Get movie based on recomandation
         getMovieSuggestion: builder.query({
-            query: (id) => `movie/${id}/recommendations?api_key=${tmdbApiKey}`,
+            query: ({id, page}) => `movie/${id}/recommendations?api_key=${tmdbApiKey}&page=${page}`,
         }),
 
         //get actor information and movies
