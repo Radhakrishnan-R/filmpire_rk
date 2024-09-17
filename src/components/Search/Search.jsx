@@ -4,12 +4,17 @@ import { TextField, InputAdornment } from '@mui/material';
 import { Search as SearchIcon } from '@mui/icons-material';
 import useStyles from "./styles";
 import { selectSearchQuery } from '../../features/currentGenreOrCategory';
+import { useLocation } from 'react-router-dom';
 
 const Search = () => {
 
     const classes = useStyles();
     const [query, setQuery] = useState("");
     const dispatch = useDispatch();
+
+    const location = useLocation();
+
+    if(location.pathname !== "/") return null;
 
     const handleKeyPress = async (e) => {
         if(e.key === "Enter"){

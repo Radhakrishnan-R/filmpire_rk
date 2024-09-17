@@ -88,7 +88,7 @@ const MovieInformation = () => {
        <Grid2 container className={classes.castGrid} width="100%" spacing={1}>
        {data?.credits?.cast.map(cast => (
         cast.profile_path && <Grid2 key={cast.id} size={{xs:4, md:2}}>
-        <Link to={`/profile/${cast.id}`} style={{textDecoration: "none"}}>
+        <Link to={`/actor/${cast.id}`} style={{textDecoration: "none"}}>
           <img 
             alt=""
             src= {`https://image.tmdb.org/t/p/w500/${cast.profile_path}`}
