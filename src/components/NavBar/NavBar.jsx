@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from "@mui/material";
 import { Menu, AccountCircle, Brightness4, Brightness7 } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import { Sidebar } from '../index';
+
+import { ColorModeContext } from '../../utils/ToggleColorMode';
 
 import useStyles from "./styles";
 import Search from '../Search/Search';
@@ -17,6 +19,9 @@ const NavBar = () => {
 
   const disptach = useDispatch();
   const navigate = useNavigate();
+  const colorMode = useContext(ColorModeContext);
+
+  console.log(colorMode.mode);
 
   const {user, isAuthenticated} = useSelector((state) => state.tmdbAuth);
 
@@ -30,6 +35,7 @@ const NavBar = () => {
         if(token){
           if(sessionId){
             const {data:  userData} = await tmdbAuth.get(`/account/null?session_id=${sessionId}`);
+            disptach(selectSetUser(userData));
             navigate("/");
           }else{
             const newSession = await createSessionId();
@@ -69,7 +75,7 @@ const NavBar = () => {
           >
           <Menu />
           </IconButton>}
-          <IconButton color='inherit' sx={{ml: 1}} onClick={() => {}}>
+          <IconButton color='inherit' sx={{ml: 1}} onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? <Brightness7/> : <Brightness4/>}
           </IconButton>
           {!isMobile && <Search />}

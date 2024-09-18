@@ -7,3 +7,6 @@ export { default as Sidebar} from "./Sidebar/Sidebar.jsx";
 export { default as MovieList} from "./MovieList/MovieList.jsx";
 export { default as Movie} from "./Movie/Movie.jsx";
 export { default as Pagination} from "./Pagination/Pagination.jsx";
+export { default as Rating} from "./Rating/Rating.jsx";
+
+

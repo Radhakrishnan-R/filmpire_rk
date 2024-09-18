@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
         width: "80%",
         margin: "0 auto !important",
         borderRadius: "20px",
-        boxShadow: "5px 10px 20px rgb(0,0,0)",
+        boxShadow: "5px 10px 20px",
         [theme.breakpoints.down("md")]: {
             width: "50%",
             // height: "350px",
@@ -46,6 +46,7 @@ export default makeStyles((theme) => ({
     },
     genreIcons: {
         width: "30px",
+        filter: theme.palette.mode === "dark" && "invert(1)",
     },
     genreLinks: {
         color: theme.palette.text.primary,

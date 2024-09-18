@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Typography, Box } from '@mui/material';
 import { ExitToApp } from "@mui/icons-material";
+import { useGetUserMoviesQuery } from '../../services/TMDB';
+import { Rating } from '../index';
 
 
 const ProfilePage = () => {
   const { user } = useSelector((state) => state.tmdbAuth);
-  const favorite = false;
+
+
+  const {data: favoriteMovies, refetch: favoriteRefetch} = useGetUserMoviesQuery({category: "favorite"});
+  const {data: watchlistMovies, refetch: watchlistRefetch} = useGetUserMoviesQuery({category: "watchlist"});
+
+  useEffect(() => {
+    favoriteRefetch();
+    watchlistRefetch();
+  }, [])
+  
 
   const logout = () => {
     localStorage.clear();
@@ -19,12 +30,9 @@ const ProfilePage = () => {
         <Typography variant='h4' gutterBottom>Profile: {user.username}</Typography>
         <Button color='inherit' onClick={logout} endIcon={<ExitToApp />}>Logout</Button>
       </Box>
-      {favorite ? 
-      (<Box></Box>) :
-      (
-        <Typography variant='h6'>Add your movies to Favorite or Watchlist it to view it here!</Typography>
-      )
-      }
+      
+      <Rating title="Favorite" movies={favoriteMovies} />
+      <Rating title="Watchlist" movies={watchlistMovies} />
     </Box>
   )
 }

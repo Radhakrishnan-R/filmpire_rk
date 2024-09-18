@@ -12,8 +12,8 @@ import { useGetGenresQuery } from '../../services/TMDB';
 import genreIcons from "../../assets/genres/index";
 
 
-const blueLogo ='https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
-const redLogo ='https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
+const blueLogo ='https://fontmeme.com/permalink/240918/725d42691ba41c80a403284dca97117e.png';
+const redLogo ='https://fontmeme.com/permalink/240918/ffb897dd22d83990f1748887c0b5b2da.png';
 
 const Sidebar = ({setMobileOpen}) => {
   const [page, setPage] = useState(1);
@@ -40,7 +40,7 @@ const Sidebar = ({setMobileOpen}) => {
   return (
     <>
         <Link to="/" className={classes.linkButton}>
-            <img alt='Filmpire' src={theme.palette.mode === "Light" ? redLogo : blueLogo} className={classes.logo}/>
+            <img alt='Filmpire' src={theme.palette.mode === "light" ? blueLogo : redLogo } className={classes.logo}/>
         </Link>
         <Divider />
         <List>

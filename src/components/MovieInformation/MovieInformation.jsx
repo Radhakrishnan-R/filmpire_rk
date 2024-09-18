@@ -2,38 +2,66 @@ import React, { useEffect, useState } from 'react';
 import {Grid2, Rating, Box, Typography, CircularProgress, ButtonGroup, Button, Modal } from "@mui/material";
 import {Language, Movie as MovieIcon, Theaters, Favorite, FavoriteBorderOutlined, Remove, PlusOne, ArrowBack} from "@mui/icons-material";
 import {Link, useParams} from "react-router-dom";
-import { useGetMovieInfoQuery, useGetMovieSuggestionQuery } from '../../services/TMDB';
+import { useGetMovieInfoQuery, useGetMovieSuggestionQuery, useGetUserMoviesQuery } from '../../services/TMDB';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from "./styles";
 import genresIcon from "../../assets/genres/index";
 import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
 import { Movie, MovieList, Pagination } from '../index';
-
+import { tmdbAuth } from '../../utils/auth';
 
 const MovieInformation = () => {
   const [page, setPage] = useState(1)
   const {id} = useParams();
   const {data, isFetching, error} = useGetMovieInfoQuery(id);
   const {data: recommandation, isFetching: fetchingRecommandation} = useGetMovieSuggestionQuery({id, page});
+  const {data: favoriteMovies} = useGetUserMoviesQuery({category: "favorite"});
+  const {data: watchlistMovies} = useGetUserMoviesQuery({category: "watchlist"});
+  console.log(favoriteMovies);
   const classes = useStyles();
+
+  const {user, sessionId} = useSelector((state) => state.tmdbAuth);
+  console.log(user);
   const dispatch = useDispatch();
   const [trailerOpen, setTrailerOpen] = useState(false)
   console.log(data);
   console.log(recommandation);
 
   useEffect(() => {
+    setisFavorite(!!favoriteMovies?.results?.find(movie => movie.id === data?.id));
+  }, [data?.id, favoriteMovies]);
+
+  useEffect(() => {
+    setisWishlist(!!watchlistMovies?.results?.find(movie => movie.id === data?.id));
+  }, [data?.id, watchlistMovies]);
+  
+
+  useEffect(() => {
     setPage(1);
   }, [id]);
   
+  const [isFavorite, setisFavorite] = useState(false);
+ const [isWishlist, setisWishlist] = useState(false);
 
-  const isFavorite = true;
-  const isWishlist = false;
+ 
   
-  const isFavorited = () => {
-    
-  }
-  const isWishlisted = () => {
+  const isFavorited = async() => {
+    const response = await tmdbAuth.post(`/account/${user.id}/favorite?session_id=${sessionId}`, {
+      media_type: 'movie',
+      media_id: id,
+      favorite: !isFavorite,
+      });
 
+      setisFavorite(prev => !prev);
+  }
+  const isWishlisted = async () => {
+    const response = await tmdbAuth.post(`/account/${user.id}/watchlist?session_id=${sessionId}`, {
+      media_type: 'movie',
+      media_id: id,
+      watchlist: !isWishlist,
+      });
+
+      setisWishlist(prev => !prev);
   }
 
   if(isFetching){
@@ -115,7 +143,7 @@ const MovieInformation = () => {
             {isWishlist ? "remove" : "wishlist"}
             </Button>
             <Button endIcon={<ArrowBack />}>
-            <Typography variant='subtitle2' sx={{textDecoration: "none"}} component={Link} to="/">Back</Typography>
+            <Typography variant='subtitle2' sx={{textDecoration: "none"}} color="textPrimary" component={Link} to="/">Back</Typography>
             </Button>
             
           </ButtonGroup>
