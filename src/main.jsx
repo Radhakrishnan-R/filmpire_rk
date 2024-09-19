@@ -4,6 +4,7 @@ import {Provider} from "react-redux";
 import ToggleColorMode from "./utils/ToggleColorMode";
 import App from "./components/App";
 import store from "./app/store";
+import "./index.css";
 
 const app = createRoot(document.getElementById("root"));
 
