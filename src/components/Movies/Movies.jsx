@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Box, CircularProgress, Typography, useMediaQuery} from "@mui/material";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectGenreOrCategoryName } from '../../features/currentGenreOrCategory';
-import { selectSearchQuery } from '../../features/currentGenreOrCategory';
 import { useGetMoviesQuery } from '../../services/TMDB';
-import { MovieList, Pagination } from '../index';
+import { Featured, MovieList, Pagination } from '../index';
 
 import useStyles from "./styles";
 
@@ -57,7 +55,8 @@ const Movies = () => {
 
   return (
     <>
-      <MovieList movies={data} noOfMovies={noOfMovies}/>
+    <Featured movie={data.results[0]}/>
+      <MovieList movies={data} noOfMovies={noOfMovies} startAt={1}/>
       <Pagination page={page} setPage={setPage} totalPages={data.total_pages}/>
     </>
       

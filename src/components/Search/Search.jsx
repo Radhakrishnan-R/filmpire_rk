@@ -20,6 +20,7 @@ const Search = () => {
     const handleKeyPress = async (e) => {
         if(e.key === "Enter"){
            await dispatch(selectSearchQuery(query));
+           setQuery("");
         }
 
 

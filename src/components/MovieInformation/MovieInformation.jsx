@@ -143,7 +143,7 @@ const MovieInformation = () => {
             {isWishlist ? "remove" : "wishlist"}
             </Button>
             <Button endIcon={<ArrowBack />}>
-            <Typography variant='subtitle2' sx={{textDecoration: "none"}} color="textPrimary" component={Link} to="/">Back</Typography>
+            <Typography variant='subtitle2' sx={{textDecoration: "none"}} color="inherit" component={Link} to="/">Back</Typography>
             </Button>
             
           </ButtonGroup>
