@@ -26,7 +26,7 @@ const ProfilePage = () => {
   }
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" marginBottom="30px">
+      <Box display="flex" justifyContent="space-between" sx={{flexWrap: "wrap"}} marginBottom="30px">
         <Typography variant='h4' gutterBottom>Profile: {user.username}</Typography>
         <Button color='inherit' onClick={logout} endIcon={<ExitToApp />}>Logout</Button>
       </Box>

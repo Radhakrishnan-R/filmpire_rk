@@ -9,7 +9,7 @@ const Rating = ({title, movies}) => {
   return (
     <div>
         <Typography variant='h5' gutterBottom>{title}</Typography>
-        <Box display="flex" gap="10px" >
+        <Box display="flex" flexWrap="wrap" gap="10px" >
             {movies?.results?.map((movie, i) => (
                 <Movie key={i} movie={movie} i={i} />
             ))}
