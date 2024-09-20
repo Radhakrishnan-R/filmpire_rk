@@ -17,15 +17,15 @@ const MovieInformation = () => {
   const {data: recommandation, isFetching: fetchingRecommandation} = useGetMovieSuggestionQuery({id, page});
   const {data: favoriteMovies} = useGetUserMoviesQuery({category: "favorite"});
   const {data: watchlistMovies} = useGetUserMoviesQuery({category: "watchlist"});
-  console.log(favoriteMovies);
+  
   const classes = useStyles();
 
   const {user, sessionId} = useSelector((state) => state.tmdbAuth);
-  console.log(user);
+  
   const dispatch = useDispatch();
   const [trailerOpen, setTrailerOpen] = useState(false)
-  console.log(data);
-  console.log(recommandation);
+  
+  
 
   useEffect(() => {
     setisFavorite(!!favoriteMovies?.results?.find(movie => movie.id === data?.id));
@@ -153,7 +153,7 @@ const MovieInformation = () => {
     </Grid2>
     <Box>
     <Typography variant='h4' gutterBottom align='left' sx={{mb:5}}>You May also Like</Typography>
-       {fetchingRecommandation ? console.log("fetchinh") :
+       {fetchingRecommandation ? "" :
         <MovieList movies={recommandation} noOfMovies={12}/>
        }
     </Box>

@@ -10,7 +10,7 @@ export const ToggleColorMode = ({children}) => {
     const [mode, setMode] = useState("light");
 
     const toggleColorMode = () => {
-        console.log("color mode");
+        
         setMode(prev => prev === "light" ? "dark" : "light");
 
 

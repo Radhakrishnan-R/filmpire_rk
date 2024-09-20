@@ -17,7 +17,7 @@ export const tmdbAuth = createSlice({
 
             localStorage.setItem("account_id", action.payload.id);
 
-            console.log(action.payload);
+            
         }
     }
 });

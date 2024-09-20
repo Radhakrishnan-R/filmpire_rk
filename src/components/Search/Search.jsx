@@ -13,7 +13,7 @@ const Search = () => {
     const dispatch = useDispatch();
 
     const location = useLocation();
-    console.log(location);
+    
 
     if(location.pathname !== "/") return null;
 

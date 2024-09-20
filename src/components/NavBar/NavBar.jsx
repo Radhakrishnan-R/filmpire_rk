@@ -21,14 +21,14 @@ const NavBar = () => {
   const navigate = useNavigate();
   const colorMode = useContext(ColorModeContext);
 
-  console.log(colorMode.mode);
+  
 
   const {user, isAuthenticated} = useSelector((state) => state.tmdbAuth);
 
   const token = localStorage.getItem("request_token");
   const sessionId = localStorage.getItem("session_id");
 
-  console.log("navbar", sessionId);
+  
 
   useEffect(() => {
     const logIn = async() => {
@@ -45,7 +45,7 @@ const NavBar = () => {
             navigate("/");
 
             
-            console.log(userData);
+            
           }
         }
     }

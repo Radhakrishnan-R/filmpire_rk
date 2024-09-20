@@ -10,7 +10,7 @@ const Movies = () => {
 
   const lg = useMediaQuery((theme) => theme.breakpoints.only("lg"));
 
-  console.log(lg);
+  
 
   const noOfMovies = lg ? 16 : 18;
 
@@ -19,7 +19,7 @@ const Movies = () => {
   
 
   const {genreOrCategoryName, searchQuery} = useSelector((state) => state.currentGenreOrCategory);
-  console.log(genreOrCategoryName);
+  
 
   const {data, error, isFetching} = useGetMoviesQuery({genreOrCategoryName, page, searchQuery});
   const classes = useStyles();
@@ -37,18 +37,18 @@ const Movies = () => {
     );
   }
   if(error){
-    console.log(error);
+    
     return (
       <Box display="flex" justifyContent="center">
         <Typography variant='h6'>Issue fetching the movies - Try again later</Typography>
       </Box>
     );
   }
-  if(data.results.length < 0){
-    console.log(error);
+  if(data?.results?.length <= 0){
+    
     return (
       <Box display="flex" justifyContent="center">
-        <Typography variant='h6'>Issue fetching the movies - Try again later</Typography>
+        <Typography variant='h6'>Sorry couldn't find any movie based on your search</Typography>
       </Box>
     );
   }

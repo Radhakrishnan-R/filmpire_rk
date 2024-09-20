@@ -12,7 +12,7 @@ const Pagination = ({page, setPage, totalPages}) => {
         setPage(prev => prev + 1);
       }
   }
-  console.log(totalPages);
+  
   return (
     <Box display="flex" justifyContent="center" alignItems="center" marginTop="30px">
         <Button variant='contained' onClick={handlePrev}>Prev</Button>

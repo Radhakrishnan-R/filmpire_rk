@@ -4,7 +4,7 @@ import useStyles from "./styles";
 import { Link } from 'react-router-dom';
 
 const Featured = ({movie}) => {
-    console.log("fetaured" ,movie);
+    
     const classes = useStyles();
   return (
     <Box marginBottom="50px" className={classes.featuredWrapper}>

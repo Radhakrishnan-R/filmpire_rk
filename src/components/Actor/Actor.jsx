@@ -12,7 +12,7 @@ const Actor = () => {
 
   const {id} = useParams();
   const {data, isFetching, error} = useGetActorInforQuery(id);
-  console.log(data);
+  
   const navigate = useNavigate();
 
   const classes = useStyles();

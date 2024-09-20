@@ -22,7 +22,7 @@ const Sidebar = ({setMobileOpen}) => {
     const {data, isFetching} = useGetGenresQuery();
     const dispatch = useDispatch();
     const {genreOrCategoryName, searchQuery} = useSelector((state) => state.currentGenreOrCategory);
-    // console.log(genreIcons);
+    // 
     
 
     const categotries = [
